@@ -7,7 +7,93 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <h1 class="text-red-500 text-3xl font-bold">Hi Tailwind!</h1>
-    <script type="module" src="/src/main.js"></script>
+    <div class="bg-blue-500 text-white p-5">RajMod</div>
+    <form class="form-center-sm relative" action="">
+      <div class="absolute top-0 right-0 p-2">
+        <label class="inline-flex items-center cursor-pointer">
+          <!-- التوجل المخفي -->
+          <input
+            type="checkbox"
+            id="themeToggle"
+            class="sr-only peer"
+            onchange="toggleDark()"
+          />
+
+          <!-- الغلاف اللي فيه السويتش والدوت -->
+          <div
+            class="w-11 h-6 bg-gray-300 rounded-full relative transition-colors duration-300 peer-checked:bg-cyan-600"
+          >
+            <!-- الدوت تتحرك داخل الغلاف مباشرة -->
+            <span
+              class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 transform peer-checked:translate-x-5"
+            ></span>
+          </div>
+        </label>
+      </div>
+
+      <label class="form-label" for="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        class="form-input"
+        placeholder="Enter your name"
+      />
+
+      <label class="form-label" for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-input"
+        placeholder="Enter your email"
+      />
+
+      <label class="form-label" for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        class="form-input"
+        placeholder="Choose a password"
+      />
+
+      <label class="form-label flex items-center gap-2 self-start text-left">
+        <input type="checkbox" class="form-checkbox" />
+        I agree to the terms
+      </label>
+
+      <select name="country" class="form-select">
+        <option value="">Select Country</option>
+        <option value="egypt">Egypt</option>
+        <option value="yemen">Yemen</option>
+      </select>
+
+      <button type="button" class="btn-submit mt-4">Submit</button>
+    </form>
+    <script>
+      const userTheme = localStorage.getItem("theme");
+      const systemTheme = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+
+      // عند التحميل: استخدم اختيار المستخدم إذا وُجد، غير كذا اتبع النظام
+      if (userTheme === "dark" || (userTheme && systemTheme)) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+
+      // زر التبديل
+      function toggleDark() {
+        const html = document.documentElement;
+        if (html.classList.contains("dark")) {
+          html.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+        } else {
+          html.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+        }
+      }
+    </script>
+
+    <script src="./src/main.js"></script>
   </body>
 </html>
